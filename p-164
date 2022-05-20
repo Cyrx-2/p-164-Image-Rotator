@@ -1,0 +1,41 @@
+from tkinter import *
+from PIL import ImageTk, Image
+from tkinter import filedialog
+
+root = Tk()
+root.title("Image Rotater")
+root.geometry("800x800")
+root.config(bg = "lightblue")
+
+Display = Label(root)
+Display.place(relx = 0.5, rely = 0.5, anchor=CENTER)
+
+img_path = ""
+
+def openImg():
+    global img_path
+    img_path = filedialog.askopenfilename(title="Open Image File", filetypes=(("Image Files", "*jpg,*gif *jpg *png *jpeg"),))  
+    print(img_path)
+    im = Image.open(img_path)
+    img = ImageTk.PhotoImage(im)
+    Display["image"]= img
+    img.close()
+    
+def rotateImage():
+    global img_path
+    im = Image.open(img_path)
+    img = ImageTk.PhotoImage(im.rotate(180))
+    Display["image"] = img
+    print(img_path)
+    img.close()
+
+btn = Button(root,text = "Open Image", font = ("Times New Roman0",12), bg = "grey", fg = "white", command = openImg, relief = SOLID, padx = 15, pady = 10)
+btn.place(relx = 0.5, rely = 0.1, anchor = CENTER)
+
+btn1 = Button(root,text = "Rotate Image", font = ("Times New Roman0",12), bg = "grey", fg = "white", command = rotateImage, relief = SOLID, padx = 15, pady = 10)
+btn1.place(relx = 0.5, rely = 0.3, anchor = CENTER)
+
+label_footer = Label(root, text = "Created by Ashton Zhang", bg = "black", fg = "white")
+label_footer.place(relx = 0.5, rely = 0.95, anchor = CENTER)
+
+root.mainloop()
